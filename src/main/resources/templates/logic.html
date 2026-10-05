@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head('Điều kiện, Vòng lặp, Toán tử')}"></head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+<div class="container my-4">
+
+  <h4>1. th:each</h4>
+  <ul>
+    <li th:each="product : ${products}">
+      <span th:text="${product.name}"></span>:
+      <span th:text="${product.price}"></span> USD
+    </li>
+  </ul>
+
+  <h4>2. th:each + th:if (chỉ sản phẩm còn hàng)</h4>
+  <ul>
+    <li th:each="product : ${products}" th:if="${product.inStock}">
+      <span th:text="${product.name}"></span>:
+      <span th:text="${product.price}"></span> USD
+    </li>
+  </ul>
+
+  <h4>3. th:if / th:unless trong vòng lặp</h4>
+  <div th:if="${!#lists.isEmpty(users)}">
+    <ul>
+      <li th:each="user : ${users}">
+        <span th:if="${user.isAdmin()}" th:text="${user.name + ' (Admin)'}"></span>
+        <span th:unless="${user.isAdmin()}" th:text="${user.name + ' (User)'}"></span>
+      </li>
+    </ul>
+  </div>
+
+  <h4>4. th:switch / th:case</h4>
+  <div th:each="user : ${users}" th:switch="${user.role}">
+    <p th:case="'ADMIN'">Welcome, Admin!</p>
+    <p th:case="'USER'">Welcome, User!</p>
+    <p th:case="*">Unknown Role</p>
+  </div>
+
+  <h4>5. Toán tử</h4>
+  <p>5 + 3 = <span th:text="${5 + 3}"></span></p>
+  <p>10 % 3 = <span th:text="${10 % 3}"></span></p>
+  <p th:with="price=25, quantity=4">
+    price * quantity = <span th:text="${price * quantity}"></span>
+  </p>
+  <p>age = <span th:text="${age}"></span>, age &gt;= 18 → <span th:text="${age >= 18}"></span></p>
+  <p>(hasPermission and active) or admin →
+    <span th:text="${(hasPermission and active) or admin}"></span></p>
+  <p th:with="x=10">th:with: x = <span th:text="${x}"></span></p>
+</div>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

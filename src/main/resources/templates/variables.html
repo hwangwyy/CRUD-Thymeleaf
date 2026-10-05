@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head('Biến và Expression')}"></head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+<div class="container my-4">
+
+  <h4>1. th:object + *{...}</h4>
+  <div th:object="${person}">
+    <p>Họ: <span th:text="*{firstName}"></span> - Tên: <span th:text="*{lastName}"></span></p>
+  </div>
+
+  <h4>2. ${...} - biến từ Model (model.addAttribute("name", ...))</h4>
+  <p>Họ tên: <span th:text="${name}"></span>.</p>
+
+  <h4>3. th:text và th:value</h4>
+  <p th:text="${user.name}"></p>
+  <input class="form-control mb-3" type="text" th:value="${user.email}"/>
+
+  <h4>4. th:field trong form (th:object + th:action)</h4>
+  <div th:if="${message != null}" class="alert alert-success">
+    <span th:text="#{iotstar.message.registered}"></span> <b th:text="${message}"></b>
+  </div>
+  <form th:object="${user}" th:action="@{/register}" method="post" class="mb-3">
+    <label for="username">Username:</label>
+    <input type="text" id="username" class="form-control mb-2" th:field="*{username}"/>
+    <button class="btn btn-primary">Register</button>
+  </form>
+
+  <h4>5. @{...} - URL động</h4>
+  <ul>
+    <li>Tuyệt đối:
+      <a th:href="@{http://localhost:8088/product/details(id=${product.id})}"
+         th:text="@{http://localhost:8088/product/details(id=${product.id})}"></a></li>
+    <li>Query param:
+      <a th:href="@{/product/details(id=${product.id})}"
+         th:text="@{/product/details(id=${product.id})}"></a></li>
+    <li>Path variable:
+      <a th:href="@{/product/{id}/details(id=${product.id})}"
+         th:text="@{/product/{id}/details(id=${product.id})}"></a></li>
+  </ul>
+
+  <h4>6. #{...} - message đa ngôn ngữ</h4>
+  <p th:utext="#{iotstar.message.hello}">Xin chào các bạn!</p>
+</div>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

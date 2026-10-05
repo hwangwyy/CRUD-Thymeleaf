@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head('Thymeleaf Demo')}"></head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+<div class="container my-4">
+  <!-- #{...}: lấy message theo ngôn ngữ; th:utext không escape HTML -->
+  <h1 th:utext="#{iotstar.message.hello}">Xin chào các bạn!</h1>
+  <ul>
+    <li><a th:href="@{/variables}">Biến &amp; Standard Expression</a></li>
+    <li><a th:href="@{/logic}">th:if, th:switch, th:each, toán tử</a></li>
+    <li><a th:href="@{/profile}">User Profile (th:each)</a></li>
+  </ul>
+</div>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head('User Profile')}"></head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+<div class="container my-4">
+  <h2>User Profile</h2>
+  <ul>
+    <!-- Duyệt toàn bộ danh sách profile -->
+    <li th:each="info : ${profile}">
+      <span th:text="${info.key}"></span> : <span th:text="${info.value}"></span>
+    </li>
+  </ul>
+</div>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>
